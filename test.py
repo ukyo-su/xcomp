@@ -43,7 +43,7 @@ def test_sum_list_comp():
 
 
 def test_sum_reduce_comp():
-    @reduce_comp(0, iter_=range(5))
+    @reduce_comp(0, for_=range(5))
     def actual(sum_, i):
         return sum_ + i
 
@@ -52,7 +52,7 @@ def test_sum_reduce_comp():
 
 def test_sum_rev_list_multi_reduce_comp():
     @multi_reduce_comp(0, [],
-                       iter_=range(5))
+                       for_=range(5))
     def actual(sum_, rev_list, i):
         return sum_ + i, [i, *rev_list]
 
@@ -64,7 +64,7 @@ def test_sum_rev_list_multi_reduce_comp():
 
 def test_unique_multi_reduce_comp():
     @multi_reduce_comp([], set(),
-                       iter_=[0, 1, 1, 2, 3, 4, 4, 4],
+                       for_=[0, 1, 1, 2, 3, 4, 4, 4],
                        result=lambda acc, seen: list(reversed(acc)))
     def actual(acc, seen, i):
         if i in seen:
@@ -76,7 +76,7 @@ def test_unique_multi_reduce_comp():
 
 
 def test_break_reduce_comp():
-    @reduce_comp(0, iter_=range(100))
+    @reduce_comp(0, for_=range(100))
     def actual(acc, i):
         if i > 5:
             raise BreakReduce
@@ -86,7 +86,7 @@ def test_break_reduce_comp():
 
 
 def test_continue_reduce_comp():
-    @reduce_comp(0, iter_=range(10))
+    @reduce_comp(0, for_=range(10))
     def actual(acc, i):
         if i < 5:
             raise ContinueReduce
@@ -96,7 +96,7 @@ def test_continue_reduce_comp():
 
 
 def test_nest_reduce_comp():
-    @reduce_comp([], iters=(range(3), range(2),))
+    @reduce_comp([], for_nest=(range(3), range(2),))
     def actual(acc, i, j):
         return [*acc, (i, j)]
 
