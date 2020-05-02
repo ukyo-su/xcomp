@@ -1,6 +1,12 @@
 # xcomp
 Extended comprehension, inspired by Racket's for-syntax.
 
+## Installation
+
+```bash
+pip install git+git://github.com/ukyo-su/xcomp@master
+```
+
 ## comp(collector)
 
 ```python
