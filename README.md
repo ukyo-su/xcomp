@@ -19,6 +19,13 @@ def a():
 
 # a == [0, 1, 2, 3, 4]
 
+@comp(sum)
+def a():
+    for i in range(5):
+        yield i
+
+# a = 10
+
 @comp(list)
 def fizz_buzz():
     for i in range(30):
