@@ -30,7 +30,7 @@ def fizz_buzz():
             yield i
 ```
 
-## multi_comp(*collector)
+## multi_comp(*collectors)
 
 ```python
 data = [(0, 1), (2, 3)]
