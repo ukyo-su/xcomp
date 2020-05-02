@@ -50,6 +50,15 @@ def test_sum_reduce_comp():
     assert actual == sum(range(5))
 
 
+def test_result_reduce_comp():
+    @reduce_comp(0, for_=range(5),
+                 result=lambda x: x / 2)
+    def actual(sum_, i):
+        return sum_ + i
+
+    assert actual == 5
+
+
 def test_sum_rev_list_multi_reduce_comp():
     @multi_reduce_comp(0, [],
                        for_=range(5))

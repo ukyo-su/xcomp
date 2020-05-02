@@ -30,7 +30,7 @@ def ignore(exception):
         pass
 
 
-def multi_reduce_comp(*inits, for_nest=(), for_=None,
+def multi_reduce_comp(*inits, for_=None, for_nest=(), 
                       result=lambda *args: args):
     if for_ is not None:
         for_nest = (for_,)
@@ -45,13 +45,16 @@ def multi_reduce_comp(*inits, for_nest=(), for_=None,
     return decorator
 
 
-def reduce_comp(init, for_nest=(), for_=None,
-                result=lambda *args: args):
+def reduce_comp(init, for_=None, for_nest=(), 
+                result=lambda x: x):
+    def multi_result(*args):
+        return result(args[0]),
+
     def decorator(func):
         def multi(*args):
             return func(*args),
         return multi_reduce_comp(init, for_nest=for_nest,
-                                 for_=for_, result=result)(multi)[0]
+                                 for_=for_, result=multi_result)(multi)[0]
     return decorator
 
 
