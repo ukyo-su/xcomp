@@ -10,6 +10,8 @@ pip install git+git://github.com/ukyo-su/xcomp@master
 ## comp(collector)
 
 ```python
+from xcomp import comp
+
 @comp(list)
 def a():
     for i in range(5):
@@ -33,6 +35,8 @@ def fizz_buzz():
 ## multi_comp(*collectors)
 
 ```python
+from xcomp import multi_comp
+
 data = [(0, 1), (2, 3)]
 
 @multi_comp(list, list)
@@ -51,6 +55,8 @@ a_i, a_j = a
 inspired by Racket's for/fold.
 
 ```python
+from xcomp import reduce_comp, BreakReduce, ContinueReduce
+
 @reduce_comp(0, for_=range(5))
 def a(sum_, i):
     return sum_ + i
@@ -92,6 +98,8 @@ def a(acc, i):
 `reduce_comp` for multiple accumulators.
 
 ```python
+from xcomp import multi_reduce_comp
+
 @multi_reduce_comp(0, [],
                    for_=range(5))
 def a(sum_, rev_list, i):
@@ -119,6 +127,8 @@ def a(acc, seen, i):
 `delay_arg(f, *args, **kwargs)(a)` means `f(a, *args, **kwargs)`
 
 ```python
+from xcomp import delay_arg
+
 @list
 @delay_arg(map, range(5))
 def a(i):
