@@ -51,7 +51,7 @@ def test_sum_reduce_comp():
 
 
 def test_sum_rev_list_multi_reduce_comp():
-    @multi_reduce_comp((0, []),
+    @multi_reduce_comp(0, [],
                        iter_=range(5))
     def actual(sum_, rev_list, i):
         return sum_ + i, [i, *rev_list]
@@ -63,7 +63,7 @@ def test_sum_rev_list_multi_reduce_comp():
 
 
 def test_unique_multi_reduce_comp():
-    @multi_reduce_comp(([], set()),
+    @multi_reduce_comp([], set(),
                        iter_=[0, 1, 1, 2, 3, 4, 4, 4],
                        result=lambda acc, seen: list(reversed(acc)))
     def actual(acc, seen, i):
