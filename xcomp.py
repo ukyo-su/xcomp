@@ -1,5 +1,5 @@
-from itertools import product
 from contextlib import contextmanager
+from itertools import product
 
 
 def comp(collector):
@@ -30,8 +30,11 @@ def ignore(exception):
         pass
 
 
-def multi_reduce_comp(*inits, for_=None, for_nest=(), 
+def multi_reduce_comp(*inits, for_=None, for_nest=None,
                       result=lambda *args: args):
+    if for_ is for_nest is None:
+        raise TypeError("an Iterable should be specified")
+
     if for_ is not None:
         for_nest = (for_,)
 
@@ -45,7 +48,7 @@ def multi_reduce_comp(*inits, for_=None, for_nest=(),
     return decorator
 
 
-def reduce_comp(init, for_=None, for_nest=(), 
+def reduce_comp(init, for_=None, for_nest=None,
                 result=lambda x: x):
     def multi_result(*args):
         return result(args[0]),

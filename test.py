@@ -1,3 +1,5 @@
+import pytest
+
 from xcomp import (comp, multi_comp, delay_arg, multi_reduce_comp, reduce_comp,
                    BreakReduce, ContinueReduce)
 
@@ -110,6 +112,39 @@ def test_nest_reduce_comp():
         return [*acc, (i, j)]
 
     assert actual == [(i, j) for i in range(3) for j in range(2)]
+
+
+def test_empty_reduce_comp():
+    @reduce_comp(0, for_=[])
+    def actual(sum_, i):
+        return sum_ + i
+
+    assert actual == 0
+
+
+def test_empty_multi_reduce_comp():
+    @multi_reduce_comp(0, [], for_=[])
+    def actual(sum_, acc, i):
+        return sum_ + i, [*acc, i]
+
+    actual_sum, actual_acc = actual
+
+    assert actual_sum == 0
+    assert actual_acc == []
+
+
+def test_no_for_reduce_comp():
+    with pytest.raises(TypeError):
+        @reduce_comp(0)
+        def actual(sum_):
+            return sum_
+
+
+def test_no_for_multi_reduce_comp():
+    with pytest.raises(TypeError):
+        @multi_reduce_comp(0, [])
+        def actual(sum_, acc):
+            return sum_, acc
 
 
 def test_map_delay_arg():
