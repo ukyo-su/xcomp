@@ -3,6 +3,8 @@ Extended comprehension, inspired by Racket's for-syntax.
 
 ## Installation
 
+compatible with python3.5-8.
+
 ```bash
 pip install git+git://github.com/ukyo-su/xcomp@master
 ```
